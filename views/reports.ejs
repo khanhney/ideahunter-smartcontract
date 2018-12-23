@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
+      <title>Blockchain-KOF</title>
+      <meta content="Admin Dashboard" name="description">
+      <meta content="Themesbrand" name="author">
+      <link rel="shortcut icon" href="/vertical/assets/images/favicon.ico">
+      
+      <link href="/vertical/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+      <link href="/vertical/assets/css/metismenu.min.css" rel="stylesheet" type="text/css">
+      <link href="/vertical/assets/css/icons.css" rel="stylesheet" type="text/css">
+      <link href="/vertical/assets/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="/plugins/ion-rangeslider/ion.rangeSlider.css" rel="stylesheet" type="text/css">
+    <link href="/plugins/ion-rangeslider/ion.rangeSlider.skinModern.css" rel="stylesheet" type="text/css">
+
+  
+
+   </head>
+   <body>
+      <!-- Begin page -->
+      <div id="wrapper">
+        <!-- Top Bar Start -->
+        <div class="topbar">
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="index.html" class="logo">
+                        <strong style="color:#f1f1f1">
+                            Spider
+                        </strong>
+                    </a>
+                </div>
+                <nav class="navbar-custom">
+                    <ul class="navbar-right d-flex list-inline float-right mb-0">
+                        <li class="dropdown notification-list d-none d-sm-block">
+                            <form role="search" class="app-search">
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" placeholder="Search..">
+                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </li>
+                        <li class="dropdown notification-list"><a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i class="ti-bell noti-icon"></i> <span class="badge badge-pill badge-danger noti-icon-badge">3</span></a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                                <!-- item-->
+                                <h6 class="dropdown-item-text">Notifications (258)</h6>
+                                <div class="slimscroll notification-item-list">
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                                        <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
+                                        <p class="notify-details">Your order is placed<span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                    </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
+                                        <p class="notify-details">New Message received<span class="text-muted">You have 87 unread messages</span></p>
+                                    </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <div class="notify-icon bg-info"><i class="mdi mdi-martini"></i></div>
+                                        <p class="notify-details">Your item is shipped<span class="text-muted">It is a long established fact that a reader will</span></p>
+                                    </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <div class="notify-icon bg-primary"><i class="mdi mdi-cart-outline"></i></div>
+                                        <p class="notify-details">Your order is placed<span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                    </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <div class="notify-icon bg-danger"><i class="mdi mdi-message"></i></div>
+                                        <p class="notify-details">New Message received<span class="text-muted">You have 87 unread messages</span></p>
+                                    </a>
+                                </div>
+                                <!-- All--><a href="javascript:void(0);" class="dropdown-item text-center text-primary">View all <i class="fi-arrow-right"></i></a></div>
+                        </li>
+                        <li class="dropdown notification-list">
+                            <div class="dropdown notification-list nav-pro-img">
+                                <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><img src="/vertical/assets/images/users/khanhney.png" alt="user" class="rounded-circle"></a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                                    <!-- item--><a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5"></i> Profile</a> <a class="dropdown-item" href="#"><i class="mdi mdi-wallet m-r-5"></i> My Wallet</a> <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings m-r-5"></i> Settings</a> <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5"></i> Lock screen</a>
+                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#"><i class="mdi mdi-power text-danger"></i> Logout</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-inline menu-left mb-0">
+                        <li class="float-left">
+                            <button class="button-menu-mobile open-left waves-effect"><i class="mdi mdi-menu"></i></button>
+                        </li>
+                        <li class="d-none d-sm-block">
+                            <div class="dropdown pt-3 d-inline-block"><a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Separated link</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+        </div>
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <div class="slimscroll-menu" id="remove-scroll">
+                <!--- Sidemenu -->
+                <%- include ./components/sidemenu.ejs%>
+                <!-- Sidebar -->
+                <div class="clearfix"></div>
+            </div>
+            <!-- Sidebar -left -->
+        </div>
+         <!-- Left Sidebar End --><!-- ============================================================== --><!-- Start right Content here --><!-- ============================================================== -->
+         <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+               <div class="container-fluid">
+                  <!-- end row -->
+                  <div class="row">
+                     <!-- end col -->
+                     <div class="col-lg-9">
+                        <div class="card m-b-20">
+                           <div class="card-body">
+                              <div class="row">
+                                    <div class="col-md-5">
+                                            <h4 class="mt-0 header-title">Thông Kê Bệnh Án</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>
+                                            Số Lượng 
+                                            <i>
+                                                <span id="amountPatient" style="color: red">
+                                                    <%= listTransactions.length%>
+                                                </span>
+                                            </i>
+                                        </strong>
+                                    </div>
+                              </div>
+                              <p class="text-muted m-b-30">Báo Cáo Tổng Quan Thông Tin Bệnh, Lứa Tuổi, ...</p>
+                              <table class="table table-striped m-b-0">
+                                 <thead>
+                                    <tr>
+                                       <th>#</th>
+                                       <th>Ngày Khởi Tạo</th>
+                                       <th>Tuổi</th>
+                                       <th>Giới Tính</th>
+                                       <th>Cân Nặng</th>
+                                       <th>Chiều Cao</th>
+                                       <!-- prescriptionID.title -->
+                                       <th>Đơn Thuốc</th>
+                                       <th>Số Lượng Đơn Thuốc</th>
+                                       <th>Mô Tả Đơn Thuốc</th>
+                                       <th>Tổng Hóa Đơn</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody id="listReports">
+                                    <% var flag = 1; %>
+                                    <%listTransactions.forEach(item => {%>
+                                        <tr>
+                                            <th scope="row"><%= flag %></th>
+                                            <td><%= moment(item.createAt).add(10, 'days').calendar();  %></td>
+                                            <td><%=item.patientID.age%></td>
+                                            <td>
+                                                <%if(Number(item.patientID.gender) === 1) {%>
+                                                    <span class="badge badge-pill badge-info">Nam</span>
+                                                <%}else{%>
+                                                    <span class="badge badge-pill badge-danger">Nữ</span>
+                                                <%}%>
+                                            </td>
+                                            <td><%=item.patientID.weight%></td>
+                                            <td><%=item.patientID.height%></td>
+                                            <td><%=item.prescriptionID.title%></td>
+                                            <td><%=item.prescriptionID.amount%></td>
+                                            <td><%=item.prescriptionID.description%></td>
+                                            <td><%=formatCurrency('#,##0.', item.totalPrice)%></td>
+                                        </tr>
+                                        <% flag++;%>
+                                    <%})%>
+                                   
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end col -->
+                     <!-- DIV RIGHT -->
+                     <div class="col-lg-3">
+                            <div class="card m-b-20">
+                               <div class="card-body">
+                                    <div class="row">
+                                            <div class="col-md-5">
+                                                    <h4 class="mt-0 header-title">Tùy Chọn</h4>
+                                            </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-sm-7 col-form-label">Giới Tính</label>
+                                        <div class="col-sm-5">
+                                            <input type="checkbox" id="switch1" switch="none" checked="checked"> 
+                                            <label for="switch1" data-on-label="Nam" data-off-label="Nữ"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-sm-5 col-form-label">Tuổi</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" id="range_age">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-sm-5 col-form-label">Cân Nặng</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" id="range_weight">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-sm-5 col-form-label">Chiều Cao</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" id="range_height">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-sm-6 col-form-label">Ngày Bắt Đầu</label>
+                                        <div class="col-sm-6"><input class="form-control" type="date" placeholder="2011-08-19" id="starttime" name="starttime"></div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-sm-6 col-form-label">Ngày Kết Thúc</label>
+                                        <div class="col-sm-6"><input class="form-control" type="date" placeholder="2011-08-19" id="endtime" name="endtime"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <button type="button" id="btnSeach" class="btn btn-outline-info waves-effect waves-light pull-right" style="margin-left: 40%">Tìm Kiếm</button>
+                                    </div>
+                               </div>
+                            </div>
+                         </div>
+                     <!-- END DIV RIGHT -->
+                  </div>
+               </div>
+                    </div>
+               <!-- container-fluid -->
+            </div>
+            <!-- content -->
+            <footer class="footer">© 2018 Spider .</footer>
+         </div>
+         <!-- ============================================================== --><!-- End Right content here --><!-- ============================================================== -->
+      </div>
+      <!-- END wrapper --><!-- jQuery  --><script src="/vertical/assets/js/jquery.min.js"></script><script src="/vertical/assets/js/bootstrap.bundle.min.js"></script><script src="/vertical/assets/js/metisMenu.min.js"></script><script src="/vertical/assets/js/jquery.slimscroll.js"></script><script src="/vertical/assets/js/waves.min.js"></script><script src="../plugins/jquery-sparkline/jquery.sparkline.min.js"></script><!-- App js --><script src="/vertical/assets/js/app.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/vi.js"></script>
+
+        <script src="/vertical/assets/js/metisMenu.min.js"></script>
+        <script src="/vertical/assets/js/jquery.slimscroll.js"></script>
+        <script src="/vertical/assets/js/waves.min.js"></script>
+        <script src="/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <!-- Range slider js -->
+        <script src="/plugins/ion-rangeslider/ion.rangeSlider.min.js"></script>
+        <script src="/vertical/assets/pages/rangeslider-init.js"></script>
+        <!-- App js -->
+        <script src="/vertical/assets/js/app.js"></script>
+        <script>
+            // AGE
+            $("#range_age").ionRangeSlider({
+                type: "double",
+                grid: !0,
+                min: 0,
+                max: 120,
+                from: 18,
+                to: 35,
+            })
+            $("#range_weight").ionRangeSlider({
+                type: "double",
+                grid: !0,
+                min: 25,
+                max: 350,
+                from: 50,
+                to: 70,
+            })
+
+            $("#range_height").ionRangeSlider({
+                type: "double",
+                grid: !0,
+                min: 120,
+                max: 250,
+                from: 130,
+                to: 170,
+                postfix: "cm"
+            })
+            
+        </script>
+    </body>
+</html>
+

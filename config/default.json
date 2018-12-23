@@ -1,0 +1,13 @@
+{
+    "provider": "https://ropsten.infura.io/v3/2c0423e705af49938305d28303877bfb",
+    "contract": {
+        "name": "SPIDER",
+        "address": "0x7cf402be43ae7a341c18370415d7eb64adcd1b79",
+        "gasLimitDefault": 3000000,
+        "gasPriceDefault": 20000000000,
+        "owner": {
+            "address": "0xd5d05d80b3e336aba3ca4cb930fe83bf8358d565",
+            "private": "2c92f5f39747ed5c37ce755101eeef3207c0c96c7c6c38f83636e035d091614c"
+        }
+    }
+} 
