@@ -4,14 +4,18 @@ const route = express.Router();
 const bodyParser = require('body-parser');
 const { hash, compare } = require('bcrypt');
 const moment = require('moment');
+
 const IPFS = require('ipfs-mini');
 const ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
 const HashIPFS = require('../models/HashIPFSTemp');
+
 const User = require('../models/User');
 var QRCode = require('qrcode');
 var Gearman = require('node-gearman');
 var gearman = new Gearman('localhost', 4730);
 var formatCurrency = require('number-format.js');
+
+const RATING_HASHING = require('../models/RatingSmartContract');
 /**
  * IMPORT INTERNAL
  */
@@ -113,13 +117,6 @@ route.get('/submit-verify-info/:userID', async(req, res) => {
         userID: userID
     }).sort({ createAt: -1 });
     const infoUserLatest = infoTransactionUser[0];
-
-    // const infoTransactionUser = await HashIPFS.find({
-    //     userID: userID
-    // }).sort({ createAt: -1 });
-    // const infoUserLatest = infoTransactionUser[0];
-    // res.json(infoUserLatest)
-
     /**
      * PUSH BLOCKCHAIN
      */
@@ -205,6 +202,40 @@ route.get('/tra-cuu-kiem-tra-ho-so-blockchain', async(req, res) => {
         status: 0
     });
     res.render('search-with-blockchain', { listPatient, moment });
-})
+});
+
+/*********RATING_ K_TRAVEL_____ */
+route.post('/add-rating-blockchain', async (req, res) => {
+    const { hashString } = req.body;
+    console.log({ hashString });
+    let initRatingHashing = new RATING_HASHING({ hashString: hashString });
+    let saveRatingHashing = await initRatingHashing.save();
+    if (!saveRatingHashing) return res.json({ error: true, message: 'cannot_save_rating_hashing' });
+
+    contractService.addIPFSHash(saveRatingHashing.hashString, {
+        address: DATA_DEFAULT.contract.owner.address,
+        private: DATA_DEFAULT.contract.owner.private
+    }, DATA_DEFAULT.contract.address, 'setHash', async (err, hash) => {
+        if (err) {
+            return res.json({
+                error: true,
+                message: err.message
+            })
+        } else {
+            /** CAP NHAT STATUS RATING - DA LUU TRU TREN BLOCKCHAIN (status) */
+            let updateStatus = await RATING_HASHING.findByIdAndUpdate(saveRatingHashing._id, {
+                status: 1
+            }, { new: true })
+
+            return res.json({
+                error: false,
+                message: 'push_blockchain_success',
+                data: {
+                    hash, updateStatus
+                }
+            })
+        }
+    });
+});
 
 module.exports = route; 
