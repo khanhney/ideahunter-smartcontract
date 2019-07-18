@@ -115,6 +115,7 @@
          <div class="content-page">
             <!-- Start content -->
             <div class="content">
+                <br><br><br>
                <div class="container-fluid">
                   <!-- end row -->
                   <div class="row">
@@ -132,6 +133,9 @@
                                             <i>
                                                 <span id="amountPatient" style="color: red">
                                                     <%= listTransactions.length%>
+                                                    <%if(listTransactions.length <= 0) {%>
+                                                        (Không Có Dữ Liệu)    
+                                                    <%}%>
                                                 </span>
                                             </i>
                                         </strong>
@@ -155,29 +159,34 @@
                                     </tr>
                                  </thead>
                                  <tbody id="listReports">
-                                    <% var flag = 1; %>
-                                    <%listTransactions.forEach(item => {%>
-                                        <tr>
-                                            <th scope="row"><%= flag %></th>
-                                            <td><%= moment(item.createAt).add(10, 'days').calendar();  %></td>
-                                            <td><%=item.patientID.age%></td>
-                                            <td>
-                                                <%if(Number(item.patientID.gender) === 1) {%>
-                                                    <span class="badge badge-pill badge-info">Nam</span>
-                                                <%}else{%>
-                                                    <span class="badge badge-pill badge-danger">Nữ</span>
-                                                <%}%>
-                                            </td>
-                                            <td><%=item.patientID.weight%></td>
-                                            <td><%=item.patientID.height%></td>
-                                            <td><%=item.prescriptionID.title%></td>
-                                            <td><%=item.prescriptionID.amount%></td>
-                                            <td><%=item.prescriptionID.description%></td>
-                                            <td><%=formatCurrency('#,##0.', item.totalPrice)%></td>
-                                        </tr>
-                                        <% flag++;%>
-                                    <%})%>
-                                   
+                                     <%if(listTransactions.length > 0) {%>
+                                        <% var flag = 1; %>
+                                        <%listTransactions.forEach(item => {%>
+                                            <tr>
+                                                <th scope="row"><%= flag %></th>
+                                                <td><%= moment(item.createAt).add(10, 'days').calendar();  %></td>
+                                                <td><%=item.patientID.age%></td>
+                                                <td>
+                                                    <%if(Number(item.patientID.gender) === 1) {%>
+                                                        <span class="badge badge-pill badge-info">Nam</span>
+                                                    <%}else{%>
+                                                        <span class="badge badge-pill badge-danger">Nữ</span>
+                                                    <%}%>
+                                                </td>
+                                                <td><%=item.patientID.weight%></td>
+                                                <td><%=item.patientID.height%></td>
+                                                <td><%=item.prescriptionID.title%></td>
+                                                <td><%=item.prescriptionID.amount%></td>
+                                                <td><%=item.prescriptionID.description%></td>
+                                                <td><%=formatCurrency('#,##0.', item.totalPrice)%></td>
+                                            </tr>
+                                            <% flag++;%>
+                                        <%})%>
+                                    
+                                    <%}else {%>
+                                        <strong>Không Có Dữ Liệu</strong>
+                                    <%}%>
+                                    
                                  </tbody>
                               </table>
                            </div>
@@ -189,16 +198,19 @@
                             <div class="card m-b-20">
                                <div class="card-body">
                                     <div class="row">
-                                            <div class="col-md-5">
-                                                    <h4 class="mt-0 header-title">Tùy Chọn</h4>
-                                            </div>
+                                        <div class="col-md-5">
+                                            <h4 class="mt-0 header-title">Tùy Chọn</h4>
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="form-group row">
                                         <label for="example-date-input" class="col-sm-7 col-form-label">Giới Tính</label>
                                         <div class="col-sm-5">
-                                            <input type="checkbox" id="switch1" switch="none" checked="checked"> 
-                                            <label for="switch1" data-on-label="Nam" data-off-label="Nữ"></label>
+                                            <input type="checkbox" id="switchGender" switch="none" 
+                                                <%if(query && query.gender && Object.is(Number(query.gender), 1)) {%>
+                                                    checked="checked"
+                                                <%}%>> 
+                                            <label for="switchGender" data-on-label="Nam" data-off-label="Nữ"></label>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -224,13 +236,59 @@
 
 
                                     <div class="form-group row">
-                                        <label for="example-date-input" class="col-sm-6 col-form-label">Ngày Bắt Đầu</label>
-                                        <div class="col-sm-6"><input class="form-control" type="date" placeholder="2011-08-19" id="starttime" name="starttime"></div>
+                                        <label for="starttime" class="col-sm-5 col-form-label">Ngày Bắt Đầu</label>
+                                        <div class="col-sm-7">
+                                            <input class="form-control" type="date" placeholder="2011-08-19" id="starttime" name="starttime"
+                                                <%if(query && query.starttime){%>
+                                                    value="<%=query.starttime%>"
+                                                <%}%>
+                                            >
+                                        </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="example-date-input" class="col-sm-6 col-form-label">Ngày Kết Thúc</label>
-                                        <div class="col-sm-6"><input class="form-control" type="date" placeholder="2011-08-19" id="endtime" name="endtime"></div>
+                                        <label for="endtime" class="col-sm-5 col-form-label">Ngày Kết Thúc</label>
+                                        <div class="col-sm-7"><input class="form-control" type="date" placeholder="2011-08-19" id="endtime" name="endtime"
+                                            <%if(query && query.endtime){%>
+                                                value="<%=query.endtime%>"
+                                            <%}%>
+                                        ></div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Hoạt Động</label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" id="active">
+                                                <%if(query && query.active){%>
+                                                    <option value="0" 
+                                                        <%if(Object.is(Number(query.active), 0)){ %>
+                                                            selected="selected" 
+                                                        <%}%>
+                                                    >Ít hoạt động</option>
+                                                    <option value="1" 
+                                                        <%if(Object.is(Number(query.active), 1)){ %>
+                                                            selected="selected" 
+                                                        <%}%>
+                                                    >Vừa</option>
+                                                    <option value="2"
+                                                        <%if(Object.is(Number(query.active), 2)){ %>
+                                                            selected="selected" 
+                                                        <%}%>
+                                                    >Thường Xuyên</option>
+                                                    <option value="3"
+                                                        <%if(Object.is(Number(query.active), 3)){ %>
+                                                            selected="selected" 
+                                                        <%}%>
+                                                    >Rất Nhiều</option>
+                                                <%}else{%>
+                                                    <option value="0">Ít hoạt động</option>
+                                                    <option value="1">Vừa</option>
+                                                    <option value="2">Thường Xuyên</option>
+                                                    <option value="3">Rất Nhiều</option>
+                                                <%}%>
+                                               
+                                            </select>
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="form-group row">
@@ -264,34 +322,111 @@
         <!-- App js -->
         <script src="/vertical/assets/js/app.js"></script>
         <script>
-            // AGE
-            $("#range_age").ionRangeSlider({
-                type: "double",
-                grid: !0,
-                min: 0,
-                max: 120,
-                from: 18,
-                to: 35,
-            })
-            $("#range_weight").ionRangeSlider({
-                type: "double",
-                grid: !0,
-                min: 25,
-                max: 350,
-                from: 50,
-                to: 70,
-            })
+            <%if(query){%>
+                <%if(query.age) {%>
+                    const ageTemp = `<%=query.age%>`;
+                    const arrAge = ageTemp.split(';');
+                    $("#range_age").ionRangeSlider({
+                        type: "double",
+                        grid: !0,
+                        min: 0,
+                        max: 120,
+                        from: Number(arrAge[0]),
+                        to: Number(arrAge[1]),
+                    });
+                <%}%>
 
-            $("#range_height").ionRangeSlider({
-                type: "double",
-                grid: !0,
-                min: 120,
-                max: 250,
-                from: 130,
-                to: 170,
-                postfix: "cm"
-            })
+                <%if(query.weight) {%>
+                    const weightTemp = `<%=query.weight%>`;
+                    const arrWeight = weightTemp.split(';');
+                    $("#range_weight").ionRangeSlider({
+                        type: "double",
+                        grid: !0,
+                        min: 25,
+                        max: 350,
+                        from: Number(arrWeight[0]),
+                        to: Number(arrWeight[1]),
+                    });
+                <%}%>
+
+                <%if(query.height) {%>
+                    const heightTemp = `<%=query.height%>`;
+                    const arrHeight = heightTemp.split(';');
+                    $("#range_height").ionRangeSlider({
+                        type: "double",
+                        grid: !0,
+                        min: 60,
+                        max: 250,
+                        from: Number(arrHeight[0]),
+                        to: Number(arrHeight[1]),
+                        postfix: "cm"
+                    });
+                <%}%>
+
+                    
+            <%}else{%>
+                // AGE
+                $("#range_age").ionRangeSlider({
+                    type: "double",
+                    grid: !0,
+                    min: 0,
+                    max: 120,
+                    from: 18,
+                    to: 45,
+                })
+                $("#range_weight").ionRangeSlider({
+                    type: "double",
+                    grid: !0,
+                    min: 25,
+                    max: 350,
+                    from: 50,
+                    to: 180,
+                })
+
+                $("#range_height").ionRangeSlider({
+                    type: "double",
+                    grid: !0,
+                    min: 60,
+                    max: 250,
+                    from: 70,
+                    to: 210,
+                    postfix: "cm"
+                });
+            <%}%>
             
+
+            const getFilter = () => {
+                const gender = $('#switchGender').is(":checked") ? 1 : 0;
+                const weight = $('#range_weight').val();
+                const height = $('#range_height').val();
+                const age = $('#range_age').val();
+                const starttime = $('#starttime').val();
+                const endtime = $('#endtime').val();
+                const active = $('#active').val();
+
+                /**
+                    active: "0"
+                    endtime: "130;170"
+                    gender: 0
+                    height: "12/10/2019"
+                    starttime: "12/10/2019"
+                    weight: "50;70"
+                 */ 
+                return { gender, weight, height, starttime, endtime, active, age }
+            }
+            
+            const buildURI = ({ gender, weight, height, starttime, endtime, active, age }) => {
+                if (Number.isNaN(Number(gender)) || Number.isNaN(Number(active)))
+                    return alert('Đường Dẫn Không Hợp Lệ');
+                const uri = `/bao-cao-thong-ke?gender=${gender}&weight=${weight}&height=${height}&starttime=${starttime}&endtime=${endtime}&active=${active}&age=${age}`;
+                return window.location.href = uri;
+            }
+            
+            $('#btnSeach').on('click', function(e) {
+                e.preventDefault();
+                const dataFilter = getFilter();
+                buildURI(dataFilter);
+            })
         </script>
     </body>
 </html>

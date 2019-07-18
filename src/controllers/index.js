@@ -14,6 +14,7 @@ var QRCode = require('qrcode');
 var Gearman = require('node-gearman');
 var gearman = new Gearman('localhost', 4730);
 var formatCurrency = require('number-format.js');
+const _ = require('lodash');
 
 const RATING_HASHING = require('../models/RatingSmartContract');
 /**
@@ -58,9 +59,9 @@ const Transaction = require('../models/Transactions');
 route.get('/xac-nhan-ipfs/:userID',async(req, res) => {
     const { userID } = req.params;
     console.log({ userID })
-    const host = 'https://4b768f12.ngrok.io';
-    const linkVerify = `${host}/verify-qrcode-user/${userID}`;
-    const qrCodeGenerate = await QRCode.toDataURL(linkVerify);
+    // const host = 'https://c596c8c7.ngrok.io';
+    // const linkVerify = `${host}/verify-qrcode-user/${userID}`;
+    const qrCodeGenerate = await QRCode.toDataURL(userID);
     if (!qrCodeGenerate) return res.json({
         error: true,
         message: 'cannot_generate_qrcode'
@@ -116,6 +117,7 @@ route.get('/submit-verify-info/:userID', async(req, res) => {
     const infoTransactionUser = await HashIPFS.find({
         userID: userID
     }).sort({ createAt: -1 });
+    console.log({ infoTransactionUser })
     const infoUserLatest = infoTransactionUser[0];
     /**
      * PUSH BLOCKCHAIN
@@ -178,23 +180,86 @@ route.get('/get-transactions', async(req, res) => {
 });
 
 route.get('/bao-cao-thong-ke', async(req, res) => {
-    try {
-        let listTransactions = await Transaction.find({})
-            .populate('patientID')
-            .populate('prescriptionID');
-            
-        if(!listTransactions) return res.json({
+    // try {
+        const { gender, weight, height, starttime, endtime, active, age } = req.query;
+        if (gender && active) {
+            if (Number.isNaN(Number(gender)) || Number.isNaN(Number(active)))
+            res.redirect('/bao-cao-thong-ke');
+        }
+         /**
+         * ĐIỀU KIỆN CHO USER
+         */
+        
+        let conditionUser = {};
+        if (weight) {
+            let arrSplitWeight = weight.split(';');
+            let fromWeight = arrSplitWeight[0];
+            let toWeight = arrSplitWeight[1];
+            conditionUser.weight = {
+                $gte: Number(fromWeight),
+                $lte: Number(toWeight)
+            };
+        }
+        if (height) {
+            let arrSplitHeight = height.split(';');
+            let fromHeight = arrSplitHeight[0];
+            let toHeight = arrSplitHeight[1];
+            conditionUser.height = {
+                $gte: Number(fromHeight),
+                $lte: Number(toHeight)
+            };
+        }
+        if (age) {
+            let arrSplitAge = age.split(';');
+            let fromAge = arrSplitAge[0];
+            let toAge = arrSplitAge[1];
+            conditionUser.age = {
+                $gte: Number(fromAge),
+                $lte: Number(toAge)
+            };
+        }
+        if (gender) {
+            conditionUser.gender = Number(gender);
+        }
+        if (active) {
+            conditionUser.active = Number(active);
+        }
+        
+        /**
+         * ĐIỀU KIỆN CHO TRANSACTION
+         */
+        let conditionReport = {
+            patientID: { $ne: null }
+        };
+        if (starttime && endtime) {
+            conditionReport.createAt = {
+                $gte: starttime,
+                $lte: endtime
+            }
+        }
+        // let filterNullAfterPopulate
+        let listTransactionsTemp = await Transaction.find(conditionReport)
+            .populate({ 
+                path: 'patientID',
+                match: conditionUser,
+            })
+            .populate('prescriptionID')
+        let listTransactions = _.filter(listTransactionsTemp, transaction => transaction.patientID);
+
+        if(!listTransactionsTemp) return res.json({
             error: true,
             message: 'cannot_get_list_transactions'
         });
-        res.render('reports', { listTransactions, moment, formatCurrency })
-    } catch (error) {
-        return res.json({
-            error: true,
-            message: error.message
-        })
-    }
-    res.render('reports');
+        res.render('reports', { listTransactions, moment, formatCurrency, query: {
+            gender, weight, height, starttime, endtime, active, age
+        } })
+    // } catch (error) {
+    //     return res.json({
+    //         error: true,
+    //         message: error.message
+    //     })
+    // }
+    // res.render('reports');
 });
 
 route.get('/tra-cuu-kiem-tra-ho-so-blockchain', async(req, res) => {
