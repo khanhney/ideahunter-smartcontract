@@ -14,7 +14,7 @@
   "author": "khanhney",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.1",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "config": "^1.31.0",
     "cors": "^2.8.4",
